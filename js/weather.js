@@ -10,12 +10,15 @@ class Weather {
     async getWeather() {
         await this.getCityID()
         
-        const response = await fetch(`api.openweathermap.org/data/2.5/forecast?id=${this.id}&appid=${this.apiKey}`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${this.id}&appid=${this.apiKey}`)
         
         const data = await response.json()
-
-        return data
         
+        const output = data.list.filter(item =>{
+            return item.dt_txt.includes("09:00:00")
+        })
+        
+        return output   
     }
 
     async getJSON() {
