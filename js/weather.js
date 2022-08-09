@@ -4,6 +4,7 @@ class Weather {
         this.apiKey = 'bdef1b5718ce073f461c7eb939d4c9aa'
         this.city = city
         this.id = null
+        this.time = Math.round((new Date().getHours())/3)*3
     }
 
     //Fetch Weather from API
@@ -13,20 +14,25 @@ class Weather {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${this.id}&appid=${this.apiKey}`)
         
         const data = await response.json()
+
+        const output = {
+            name : data.city.name,
+            forecast : data.list.filter(item =>{
+                return item.dt_txt.includes(`${this.time}:00:00`)
+            }),
+        }
         
-        const output = data.list.filter(item =>{
-            return item.dt_txt.includes("09:00:00")
-        })
-        
-        return output   
+        return output 
     }
 
+    //Fetcht the city id json
     async getJSON() {
        const response = await fetch('json/city.list.json')
        const data = await response.json()
        return data  
     }
 
+    //Get the city id from the city name
     async getCityID(){
         await this.getJSON().then(data => data.forEach(set =>{
             if(set.name === this.city){
@@ -34,7 +40,11 @@ class Weather {
             }
         }))
     }
+    //Change weather location
+    changeLocation(city){
+        this.city = city
+    }
 }
 
-const weather = new Weather('Mumbai')
-weather.getWeather().then(data => console.log(data))
+// const weather = new Weather('Mumbai')
+// weather.getWeather().then(data => console.log(data))
