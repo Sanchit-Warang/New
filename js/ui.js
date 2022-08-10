@@ -1,10 +1,12 @@
 class UI{
     
     constructor(){
-        this.forecastSection = document.querySelector('#forecast-section') 
+        this.forecastSection = document.querySelector('#forecast-section')
+        this.locationDisplay = document.querySelector('#location') 
+        this.alert = document.querySelector('#alert')
     }
     
-    paint(forecasts){
+    paint(forecasts,name){
         let output = ''
         forecasts.forEach(forecast => {
           const temp = forecast.dt_txt.split(' ')
@@ -24,34 +26,39 @@ class UI{
           `
         });
         this.forecastSection.innerHTML = output
+        this.locationDisplay.innerHTML =`
+        <center><h1 class="text-white">${name}</h1></center>
+        `
+    }
+
+    alert(message,type){
+      this.alert.innerHTML = `
+      <div class="col-md-6 mx-auto">
+      <div class="alert alert-${type}">
+          ${message}
+      </div>
+      </div>
+      `
     }
 
     getDayName(num){
         switch(num) {
             case 0:
               return 'Sunday'
-              break;
             case 1:
               return 'Monday'
-              break;
             case 2:
               return 'Tuesday'
-              break;
             case 3:
               return 'Wednesday'
-              break;
             case 4:
               return 'Thursday'
-              break;
             case 5:
               return 'Friday'
-              break;
             case 6:
               return 'Saturday'
-              break;
             default:
               return 'Err'
-              break;
           }
     }
 

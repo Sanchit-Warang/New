@@ -3,6 +3,7 @@ class Weather {
     constructor(city){
         this.apiKey = 'bdef1b5718ce073f461c7eb939d4c9aa'
         this.city = city
+        this.cityExits = false
         this.id = null
         this.time = Math.round((new Date().getHours())/3)*3
     }
@@ -10,19 +11,20 @@ class Weather {
     //Fetch Weather from API
     async getWeather() {
         await this.getCityID()
+        if(this.cityExits === true){
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${this.id}&appid=${this.apiKey}`)
         
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${this.id}&appid=${this.apiKey}`)
-        
-        const data = await response.json()
+            const data = await response.json()
 
-        const output = {
-            name : data.city.name,
-            forecast : data.list.filter(item =>{
-                return item.dt_txt.includes(`${this.time}:00:00`)
-            }),
+            const output = await {
+                name : data.city.name,
+                forecast : data.list.filter(item =>{
+                    return item.dt_txt.includes(`${this.time}:00:00`||`0${this.time}:00:00`)
+                }),
+            }
+            this.cityExits = false    
+            return output
         }
-        
-        return output 
     }
 
     //Fetcht the city id json
@@ -37,6 +39,7 @@ class Weather {
         await this.getJSON().then(data => data.forEach(set =>{
             if(set.name === this.city){
                 this.id = set.id
+                this.cityExits = true
             }
         }))
     }
@@ -44,7 +47,8 @@ class Weather {
     changeLocation(city){
         this.city = city
     }
-}
 
-// const weather = new Weather('Mumbai')
-// weather.getWeather().then(data => console.log(data))
+    cityExits(){
+        return this.cityExits
+    }
+}
