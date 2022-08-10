@@ -31,7 +31,8 @@ class UI{
         `
     }
 
-    alert(message,type){
+    setAlert(message,type){
+      
       this.alert.innerHTML = `
       <div class="col-md-6 mx-auto">
       <div class="alert alert-${type}">
@@ -39,6 +40,7 @@ class UI{
       </div>
       </div>
       `
+      setTimeout(() => this.alert.innerHTML = '', 3000)
     }
 
     getDayName(num){

@@ -5,22 +5,17 @@ const weatherLocation = storage.getLocationData()
 const weather = new Weather(weatherLocation)
 //init ui obj
 const ui = new UI()
-
+// ui.setAlert('Found the city','success')
 
 //Change location event
 document.querySelector('.btn').addEventListener('click',() =>{
-    const city  =  document.querySelector("#changeLoc").value
+    const city  =  document.querySelector("#changeLoc").value 
     //change location
     weather.changeLocation(city)
     //setlocation in local storage()
     storage.setLocationData(city)
     //Call get weather again
     getWeather()
-    if(weather.cityExits === true){
-        ui.alert('Check the city name','danger')
-    }else{
-        ui.alert('Found the city','success')
-    } 
 })
 
 //run on dim load
@@ -32,4 +27,10 @@ function getWeather(){
         ui.paint(data.forecast,data.name)
     })
     .catch(err => console.log(err))
+    // if(weather.cityExits === true){
+    //     ui.setAlert('Found the city','success')
+    // }else{
+    //     ui.setAlert('Check the city name','danger')        
+    // }
+    // weather.cityExits = false 
 }

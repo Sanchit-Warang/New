@@ -21,8 +21,7 @@ class Weather {
                 forecast : data.list.filter(item =>{
                     return item.dt_txt.includes(`${this.time}:00:00`||`0${this.time}:00:00`)
                 }),
-            }
-            this.cityExits = false    
+            }    
             return output
         }
     }
