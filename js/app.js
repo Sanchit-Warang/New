@@ -18,7 +18,7 @@ document.querySelector('.btn').addEventListener('click',() =>{
     getWeather()
 })
 
-//run on dim load
+//run on dom load
 document.addEventListener("DOMContentLoaded",getWeather())
 function getWeather(){
     weather.getWeather()
@@ -27,10 +27,4 @@ function getWeather(){
         ui.paint(data.forecast,data.name)
     })
     .catch(err => console.log(err))
-    // if(weather.cityExits === true){
-    //     ui.setAlert('Found the city','success')
-    // }else{
-    //     ui.setAlert('Check the city name','danger')        
-    // }
-    // weather.cityExits = false 
 }
