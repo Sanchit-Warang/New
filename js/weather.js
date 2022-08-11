@@ -11,7 +11,12 @@ class Weather {
     //Fetch Weather from API
     async getWeather() {
         await this.getCityID()
-        
+        const ui = new UI()
+            if(this.cityExits === true){
+                ui.setAlert('Found the city !!!','success')
+            }else{
+                ui.setAlert('Check the city name !!!','danger')        
+            }
         if(this.cityExits === true){
             const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${this.id}&appid=${this.apiKey}`)
         
@@ -22,12 +27,6 @@ class Weather {
                 forecast : data.list.filter(item =>{
                     return item.dt_txt.includes(`${this.time}:00:00`||`0${this.time}:00:00`)
                 }),
-            }
-            const ui = new UI()
-            if(this.cityExits === true){
-                ui.setAlert('Found the city !!!','success')
-            }else{
-                ui.setAlert('Check the city name !!!','danger')        
             }
             this.cityExits = false    
             return output
