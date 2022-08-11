@@ -32,14 +32,16 @@ class UI{
     }
 
     setAlert(message,type){
-      
-      this.alert.innerHTML = `
-      <div class="col-md-6 mx-auto">
-      <div class="alert alert-${type}">
-          ${message}
-      </div>
-      </div>
-      `
+      setTimeout(() => {
+        
+        this.alert.innerHTML = `
+        <div class="col-md-6 mx-auto">
+        <div class="alert alert-${type}">
+        ${message}
+        </div>
+        </div>
+        `
+      },200)
       setTimeout(() => this.alert.innerHTML = '', 3000)
     }
 

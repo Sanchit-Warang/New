@@ -13,9 +13,11 @@ document.querySelector('.btn').addEventListener('click',() =>{
     //change location
     weather.changeLocation(city)
     //setlocation in local storage()
-    storage.setLocationData(city)
-    //Call get weather again
+    //Call get weather again 
     getWeather()
+
+    setTimeout(() => storage.setLocationData(weather.city) , 3000)   
+     
 })
 
 //run on dom load
