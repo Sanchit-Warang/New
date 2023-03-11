@@ -42,7 +42,7 @@ class Weather {
     //Get the city id from the city name
     async getCityID(){
         await this.getJSON().then(data => data.forEach(set =>{
-            if(set.name === this.city){
+            if(set.name.toLowerCase() === this.city.toLowerCase()){
                 this.id = set.id
                 this.cityExits = true
             }
